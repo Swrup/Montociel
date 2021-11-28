@@ -48,7 +48,6 @@ fn setup_score_ui(
     mut score: ResMut<Score>,
     asset_server: Res<AssetServer>,
 ) {
-    //commands.spawn_bundle(UiCameraBundle::default());
     score.reset();
     commands
         .spawn_bundle(TextBundle {

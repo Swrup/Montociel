@@ -14,7 +14,6 @@ impl Plugin for UIPlugin {
 }
 
 fn button_system(
-    //button_materials: Res<ButtonMaterials>,
     mut commands: Commands,
     mut interaction_query: Query<&Interaction, (Changed<Interaction>, With<Button>)>,
     entities: Query<Entity, Without<bevy::render::camera::Camera>>,
@@ -54,7 +53,6 @@ fn setup_button(
     mut commands: Commands,
     asset_server: Res<AssetServer>,
     state: Res<State<AppState>>,
-    //button_materials: Res<ButtonMaterials>,
 ) {
     let text = match state.current() {
         AppState::Menu => "Play!",

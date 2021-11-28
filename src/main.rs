@@ -1,5 +1,7 @@
 use bevy::prelude::*;
 use bevy_rapier2d::prelude::*;
+use bevy_webgl2;
+use wasm_bindgen::prelude::*;
 
 mod cloud;
 mod montociel;
@@ -50,10 +52,16 @@ pub enum AppState {
     GameOver,
 }
 
-fn main() {
-    App::build()
-        .add_plugins(DefaultPlugins)
-        .add_plugin(RapierPhysicsPlugin::<NoUserData>::default())
+pub fn main() {
+    let mut app = App::build();
+
+    app.add_plugins(DefaultPlugins);
+
+    // when building for Web, use WebGL2 rendering
+    #[cfg(target_arch = "wasm32")]
+    app.add_plugin(bevy_webgl2::WebGL2Plugin);
+
+    app.add_plugin(RapierPhysicsPlugin::<NoUserData>::default())
         .insert_resource(ClearColor(Color::rgb(1.0, 0.714, 0.757)))
         .init_resource::<Materials>()
         .add_plugin(MontocielPlugin)
@@ -61,6 +69,7 @@ fn main() {
         .add_plugin(ScorePlugin)
         .add_plugin(UIPlugin)
         .add_state(AppState::Menu)
-        .add_system_set(SystemSet::on_enter(AppState::Menu).with_system(setup.system()))
-        .run();
+        .add_system_set(SystemSet::on_enter(AppState::Menu).with_system(setup.system()));
+
+    app.run();
 }
