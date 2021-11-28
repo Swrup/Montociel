@@ -1,0 +1,14 @@
+[package]
+name = "montociel"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+bevy = "0.5"
+bevy_rapier2d = "*"
+rand = "*"
+
+[package.metadata.android]
+build_targets = ["aarch64-linux-android", "armv7-linux-androideabi"]
+target_sdk_version = 29
+min_sdk_version = 16
