@@ -1,7 +1,6 @@
+use bevy::asset::AssetServerSettings;
 use bevy::prelude::*;
 use bevy_rapier2d::prelude::*;
-use bevy_webgl2;
-use wasm_bindgen::prelude::*;
 
 mod cloud;
 mod montociel;
@@ -63,6 +62,9 @@ pub fn main() {
 
     app.add_plugin(RapierPhysicsPlugin::<NoUserData>::default())
         .insert_resource(ClearColor(Color::rgb(1.0, 0.714, 0.757)))
+        .insert_resource(AssetServerSettings {
+            asset_folder: "/".to_string(),
+        })
         .init_resource::<Materials>()
         .add_plugin(MontocielPlugin)
         .add_plugin(CloudPlugin)
